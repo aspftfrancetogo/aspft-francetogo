@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Lock, ArrowRight, Info, Github } from 'lucide-react';
 
 interface LoginProps {
@@ -8,39 +8,6 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ onLogin, onCancel }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    // Check if redirected after successful auth
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('authenticated') === 'true') {
-      // Verify session with backend
-      fetch('/api/auth/verify', {
-        credentials: 'include'
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.authenticated) {
-            onLogin();
-          } else {
-            setError('Authentification échouée');
-          }
-        })
-        .catch(() => setError('Erreur de vérification'));
-    } else {
-      // Check existing session
-      fetch('/api/auth/verify', {
-        credentials: 'include'
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.authenticated) {
-            onLogin();
-          }
-        })
-        .catch(() => {});
-    }
-  }, [onLogin]);
 
   const handleGitHubLogin = () => {
     setIsLoading(true);
@@ -67,19 +34,16 @@ const Login: React.FC<LoginProps> = ({ onLogin, onCancel }) => {
             </div>
           </div>
 
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
-              {error}
-            </div>
-          )}
-
           <button
             onClick={handleGitHubLogin}
             disabled={isLoading}
             className={`w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-3 shadow-lg ${isLoading ? 'opacity-70 cursor-wait' : ''}`}
           >
             {isLoading ? (
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+              <>
+                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                Redirection vers GitHub...
+              </>
             ) : (
               <>
                 <Github className="w-5 h-5" />
