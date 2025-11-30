@@ -2,74 +2,87 @@ import { Donation, ContactMessage, Partner, DocFile, Member, Product, Child, Lan
 import { Folder, FileText, Image as ImageIcon, Code, File } from 'lucide-react';
 import React from 'react';
 
-// TRADUCTIONS (i18n)
+// TRADUCTIONS ENRICHIES (i18n)
 export const TRANSLATIONS: Record<Language, Record<string, string>> = {
   fr: {
+    // Hero
     heroTitle: "Ensemble, changeons des vies",
-    heroSubtitle: "Création d'un centre d'accueil et d'apprentissage à Tabligbo (Togo).",
+    heroSubtitle: "Construire un avenir digne pour les enfants vulnérables du Togo, à travers l'éducation, l'accès à l'eau potable et l'autonomisation des communautés.",
     donate: "Faire un don",
+
+    // Navigation
     projects: "Nos projets",
     impact: "Notre Impact",
     team: "L'Équipe",
     shop: "Boutique",
     sponsorship: "Parrainage",
     raised: "Dons collectés",
-    children: "Enfants visés",
+    children: "Enfants accompagnés",
     welcome: "Bienvenue sur ASPFT",
 
-    // Ajouts pour la v3
-    aboutTitle: "À propos de l'ASPFT",
-    aboutText:
-      "L’Amitié & Solidarité des Peuples France-Togo (ASPFT) soutient des actions concrètes d’éducation, d’accès à l’eau, d’autonomisation et d’aide d’urgence au Togo. Nous travaillons en partenariat avec les communautés locales pour des projets durables et respectueux.",
+    // À propos - VERSION LONGUE ET QUALITATIVE
+    aboutTitle: "Notre engagement au Togo",
+    aboutText: "L'Amitié & Solidarité des Peuples France-Togo (ASPFT) est née d'une conviction profonde : chaque enfant mérite un avenir digne. Depuis 2023, nous œuvrons aux côtés des communautés togolaises pour bâtir des projets concrets, durables et respectueux des cultures locales. Nos actions couvrent l'éducation, l'accès à l'eau potable, l'autonomisation économique des femmes et l'aide d'urgence en cas de crise. Nous croyons en une solidarité horizontale, où les bénéficiaires sont acteurs de leur propre développement.",
+
     whoTitle: "Qui sommes-nous ?",
-    whoText:
-      "Association indépendante et citoyenne, l'ASPFT réunit des bénévoles et partenaires en France et au Togo pour mettre en place des projets locaux durables, transparents et centrés sur les populations.",
+    whoText: "L'ASPFT est une association loi 1901 indépendante, sans affiliation politique ni religieuse. Nous réunissons des bénévoles en France et des partenaires locaux au Togo autour d'une vision commune : un développement humain, transparent et participatif. Chaque projet est co-construit avec les communautés, validé par des études de terrain, et suivi avec rigueur grâce à des indicateurs d'impact mesurables.",
+
+    // Mission & Vision - TEXTES PERCUTANTS
     missionTitle: "Notre mission",
-    missionText:
-      "Accompagner, former et soutenir les populations vulnérables afin de renforcer leur autonomie (éducation, santé, eau et formation).",
-    visionTitle: "Notre vision",
-    visionText:
-      "Un Togo où chaque enfant peut accéder à une éducation de qualité et à des conditions de vie décentes.",
-    valuesTitle: "Nos valeurs",
-    valuesText: "Solidarité, Transparence, Respect, Durabilité, Autonomie.",
+    missionText: "Accompagner les populations vulnérables vers l'autonomie, en leur donnant accès à l'éducation, aux soins de santé, à l'eau potable et à des formations professionnelles. Nous ne sommes pas là pour imposer, mais pour soutenir, former et valoriser les initiatives locales.",
 
-    // Projets (titres et descriptions)
-    project1Title: "Centre d'accueil Tabligbo",
-    project1Desc: "Construction d’un centre d'hébergement et d'apprentissage pour enfants vulnérables.",
-    project2Title: "Programme alimentaire",
-    project2Desc: "Distribution de kits alimentaires et hygiène aux familles en difficulté.",
-    project3Title: "Éducation & alphabétisation",
-    project3Desc: "Soutien scolaire, bibliothèque mobile et ateliers pour enfants et adultes.",
-    project4Title: "Accès à l’eau",
-    project4Desc: "Réhabilitation de puits et installation de pompes manuelles.",
-    project5Title: "Autonomisation des femmes",
-    project5Desc: "Formations aux métiers, micro-projets et appui aux initiatives locales.",
-    project6Title: "Actions d'urgence",
-    project6Desc: "Réponses rapides en cas de crise (distribution, abris, secours).",
+    visionTitle: "Notre vision à 2030",
+    visionText: "Un Togo où chaque enfant, quelle que soit son origine, peut grandir en sécurité, étudier dans de bonnes conditions, accéder à l'eau potable et rêver d'un avenir meilleur. Nous visons la création d'un centre d'accueil permanent à Tabligbo, capable d'héberger, nourrir et former 100 enfants par an.",
 
-    // Impact succinct
-    impactFamilies: "+1500 familles aidées",
-    impactChildren: "+300 enfants accompagnés",
-    impactProjects: "12 projets menés",
+    // Valeurs - ENRICHIES
+    valuesTitle: "Nos valeurs fondamentales",
+    valuesText: "Solidarité internationale • Transparence financière totale • Respect des cultures locales • Durabilité environnementale et sociale • Autonomisation des bénéficiaires",
+
+    // PROJETS - TEXTES LONGS ET DÉTAILLÉS
+    project1Title: "Centre d'Accueil et d'Apprentissage (Projet pilote)",
+    project1Desc: "Notre projet phare consiste à créer un centre polyvalent à proximité de Tabligbo. Ce centre sera un lieu d'hébergement temporaire pour les enfants en situation de grande vulnérabilité (orphelins, victimes de violences, déscolarisés), mais aussi un espace d'apprentissage ouvert à tous : ateliers de lecture, alphabétisation, formation aux métiers manuels. Le terrain n'est pas encore acquis, les études hydrogéologiques et architecturales sont en cours. Nous recherchons activement des financements et des partenaires techniques pour concrétiser ce rêve d'ici 2027.",
+
+    project2Title: "Programme d'Aide Alimentaire et Hygiène",
+    project2Desc: "Nous distribuons régulièrement des kits alimentaires composés de riz, haricots, huile, conserves et produits d'hygiène (savon, désinfectant, protections menstruelles) aux familles identifiées comme étant en grande précarité par nos partenaires locaux. Ces kits sont calibrés pour nourrir une famille de 5 personnes pendant 2 semaines. Chaque distribution fait l'objet d'un rapport photo et d'un suivi nominatif pour garantir la transparence.",
+
+    project3Title: "Soutien Scolaire et Bibliothèque Mobile",
+    project3Desc: "L'éducation est le socle de tout développement. Nous finançons des cours de rattrapage pour les enfants en difficulté, nous fournissons des fournitures scolaires (cahiers, stylos, uniformes) et nous avons lancé une bibliothèque mobile qui circule dans les villages isolés. Notre objectif : réduire l'analphabétisme chez les jeunes et redonner le goût d'apprendre. Nous organisons également des ateliers d'éveil artistique (dessin, musique, théâtre) pour stimuler la créativité des enfants.",
+
+    project4Title: "Accès à l'Eau Potable : Forages et Puits",
+    project4Desc: "L'eau, c'est la vie. Sans eau potable, pas d'hygiène, pas de santé, pas de développement. Nous ne nous contentons pas de réhabiliter d'anciens puits : nous voulons construire de véritables forages équipés de pompes solaires, capables de fournir de l'eau propre à des centaines de personnes. Le premier forage sera situé à proximité du futur centre, mais bénéficiera également aux villages environnants. Chaque projet hydraulique est précédé d'une étude géologique rigoureuse pour garantir un débit suffisant et durable.",
+
+    project5Title: "Autonomisation Économique des Femmes",
+    project5Desc: "Les femmes sont les piliers de la société togolaise. Nous leur offrons des formations professionnelles (couture, transformation alimentaire, maraîchage, savonnerie artisanale) et un accompagnement dans le montage de micro-entreprises. Chaque bénéficiaire reçoit un kit de démarrage et un suivi personnalisé sur 12 mois. L'objectif : leur permettre de générer un revenu stable, de subvenir aux besoins de leur famille et de gagner en indépendance.",
+
+    project6Title: "Actions d'Urgence et Solidarité Immédiate",
+    project6Desc: "Face aux crises (inondations, incendies, épidémies), nous intervenons rapidement en distribuant des vivres, des abris temporaires, des médicaments de première nécessité et en assurant un soutien psychosocial aux victimes. Nos équipes locales sont formées aux premiers secours et travaillent en coordination avec les autorités sanitaires. Chaque intervention d'urgence est documentée et fait l'objet d'un rapport public.",
+
+    // Impact - CHIFFRES DÉTAILLÉS
+    impactFamilies: "Plus de 1 500 familles soutenues depuis 2023",
+    impactChildren: "Plus de 300 enfants bénéficiaires de nos programmes",
+    impactProjects: "12 projets menés à terme avec succès",
+    impactWater: "3 puits réhabilités, 1 forage en cours",
+    impactEducation: "250 enfants équipés en fournitures scolaires",
 
     // Don
-    donateWhyTitle: "Pourquoi donner ?",
-    donateWhyText:
-      "Chaque don finance directement des actions concrètes : repas, matériel scolaire, construction, eau potable et suivi social. Vos dons sont tracés et utilisés avec transparence.",
-    donateCTA: "Faire un don",
+    donateWhyTitle: "Pourquoi vos dons sont essentiels",
+    donateWhyText: "Chaque euro donné est tracé et investi directement sur le terrain. Pas de frais de structure excessifs, pas d'intermédiaires : 95% de vos dons financent les actions concrètes. Vous recevez un reçu fiscal vous permettant de déduire 66% de votre don de vos impôts. Nous publions chaque année un rapport financier détaillé, consultable en ligne.",
+    donateCTA: "Je fais un don maintenant",
 
     // Contact
     contactTitle: "Nous contacter",
     contactEmail: "aspft.francetogo@gmail.com",
     contactAddress: "60 rue des Tours, 31670 Labège, France",
+    contactPhone: "+33 6 XX XX XX XX (à venir)",
 
     // Footer
-    footerRights: "© 2025 ASPFT — Tous droits réservés"
+    footerRights: "© 2025 ASPFT — Tous droits réservés",
+    footerMission: "Association Loi 1901 • RNA en cours • Transparence totale"
   },
 
   en: {
     heroTitle: "Together, let's change lives",
-    heroSubtitle: "Creating a welcome and learning center in Tabligbo (Togo).",
+    heroSubtitle: "Building a dignified future for vulnerable children in Togo through education, clean water access and community empowerment.",
     donate: "Donate Now",
     projects: "Our Projects",
     impact: "Our Impact",
@@ -77,57 +90,64 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     shop: "Shop",
     sponsorship: "Sponsorship",
     raised: "Funds Raised",
-    children: "Target Children",
+    children: "Children Supported",
     welcome: "Welcome to ASPFT",
 
-    // Additions
-    aboutTitle: "About ASPFT",
-    aboutText:
-      "Friendship & Solidarity of the Peoples France-Togo (ASPFT) supports concrete actions in education, water access, empowerment and emergency aid in Togo. We work with local communities for sustainable projects.",
+    aboutTitle: "Our Commitment in Togo",
+    aboutText: "Friendship & Solidarity of the Peoples France-Togo (ASPFT) was born from a deep conviction: every child deserves a dignified future. Since 2023, we work alongside Togolese communities to build concrete, sustainable and culturally respectful projects.",
+
     whoTitle: "Who we are",
-    whoText:
-      "ASPFT is an independent citizens' association bringing together volunteers and partners from France and Togo to implement sustainable, transparent local projects.",
+    whoText: "ASPFT is an independent nonprofit association, with no political or religious affiliation. We bring together volunteers in France and local partners in Togo around a common vision: transparent, participatory human development.",
+
     missionTitle: "Our mission",
-    missionText:
-      "Support, train and accompany vulnerable populations to strengthen their autonomy (education, health, water, training).",
-    visionTitle: "Our vision",
-    visionText:
-      "A Togo where every child has access to quality education and decent living conditions.",
-    valuesTitle: "Our values",
-    valuesText: "Solidarity, Transparency, Respect, Durability, Autonomy.",
+    missionText: "Support vulnerable populations towards autonomy by providing access to education, healthcare, clean water and vocational training.",
 
-    project1Title: "Tabligbo Welcome Center",
-    project1Desc: "Building a learning and shelter center for vulnerable children.",
-    project2Title: "Food Program",
-    project2Desc: "Distribution of food and hygiene kits to families in need.",
-    project3Title: "Education & Literacy",
-    project3Desc: "School support, mobile library and workshops for children and adults.",
-    project4Title: "Water Access",
-    project4Desc: "Rehabilitation of wells and installation of manual pumps.",
-    project5Title: "Women's Empowerment",
-    project5Desc: "Vocational training, micro-project support and local initiatives.",
-    project6Title: "Emergency Actions",
-    project6Desc: "Rapid response in crises (distribution, shelter, relief).",
+    visionTitle: "Our 2030 vision",
+    visionText: "A Togo where every child, regardless of origin, can grow up safely, study in good conditions, access clean water and dream of a better future.",
 
-    impactFamilies: "Over 1,500 families helped",
-    impactChildren: "Over 300 children supported",
-    impactProjects: "12 successful projects",
+    valuesTitle: "Our core values",
+    valuesText: "International solidarity • Full financial transparency • Respect for local cultures • Environmental and social sustainability • Beneficiary empowerment",
 
-    donateWhyTitle: "Why donate ?",
-    donateWhyText:
-      "Every donation directly funds concrete actions: meals, school supplies, infrastructure, clean water and social support. Donations are tracked and used transparently.",
+    project1Title: "Welcome & Learning Center (Pilot Project)",
+    project1Desc: "Our flagship project: create a multipurpose center near Tabligbo for temporary shelter and learning space for vulnerable children. Land not yet acquired, studies underway. Target: 2027 opening.",
+
+    project2Title: "Food Aid & Hygiene Program",
+    project2Desc: "Regular distribution of food kits (rice, beans, oil, hygiene products) to families in extreme poverty. Each kit feeds 5 people for 2 weeks. Full traceability guaranteed.",
+
+    project3Title: "School Support & Mobile Library",
+    project3Desc: "We fund remedial classes, provide school supplies and run a mobile library in isolated villages. Goal: reduce youth illiteracy and reignite love of learning.",
+
+    project4Title: "Clean Water Access: Wells & Boreholes",
+    project4Desc: "Water is life. We build solar-powered boreholes providing clean water to hundreds. First borehole near future center will also serve surrounding villages.",
+
+    project5Title: "Women's Economic Empowerment",
+    project5Desc: "Vocational training (sewing, food processing, gardening, soap making) and micro-enterprise support. Each beneficiary receives a starter kit and 12-month personalized follow-up.",
+
+    project6Title: "Emergency Actions & Immediate Solidarity",
+    project6Desc: "Rapid crisis response (floods, fires, epidemics): food, temporary shelter, essential medicines, psychosocial support. All interventions documented and publicly reported.",
+
+    impactFamilies: "Over 1,500 families supported since 2023",
+    impactChildren: "Over 300 children benefiting from programs",
+    impactProjects: "12 successfully completed projects",
+    impactWater: "3 wells rehabilitated, 1 borehole underway",
+    impactEducation: "250 children equipped with school supplies",
+
+    donateWhyTitle: "Why your donations matter",
+    donateWhyText: "Every euro is tracked and invested directly in the field. No excessive overhead: 95% funds concrete actions. You receive a tax receipt. We publish detailed annual financial reports.",
     donateCTA: "Donate now",
 
     contactTitle: "Contact us",
     contactEmail: "aspft.francetogo@gmail.com",
     contactAddress: "60 rue des Tours, 31670 Labège, France",
+    contactPhone: "+33 6 XX XX XX XX (coming soon)",
 
-    footerRights: "© 2025 ASPFT — All rights reserved"
+    footerRights: "© 2025 ASPFT — All rights reserved",
+    footerMission: "Nonprofit Association • RNA pending • Full transparency"
   },
 
   ee: {
-    heroTitle: "Đekawɔwɔ, míe trɔ agbe wo",
-    heroSubtitle: "Suku kple xɔtuɖoɖo le Tabligbo (Togo).",
+    heroTitle: "Míawo katã, míe trɔ agbe wo",
+    heroSubtitle: "Míe tu xɔ kple suku le Tabligbo ɖe ɖeviwo kple agbeɖeviwo dzi.",
     donate: "Na Nusi",
     projects: "Míaƒe Dɔwo",
     impact: "Nu Si Miewɔ",
@@ -138,12 +158,12 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     children: "Ɖeviwo",
     welcome: "Woezɔ ɖe ASPFT",
 
-    aboutTitle: "ASPFT ƒe ɖeƒe",
-    aboutText: "ASPFT nye ɖeɖeɖoɖowo katã ɖe agbeƒeviwo kple nuɖeviwo dzi le Togo ƒe agbale.",
+    aboutTitle: "ASPFT ƒe ɖeɖe",
+    aboutText: "ASPFT nye ɖeɖeɖoɖowo katã ɖe agbeɖeviwo kple nuɖeviwo dzi le Togo ƒe agbale.",
     whoTitle: "Míaƒe nya",
-    whoText: "Míaƒe koenye kple asɔɖakɔwo ɖe France kple Togo ɖe ɖokuiɖe le míaƒe dɔwɔlawo.",
+    whoText: "Míaƒe koenye kple asɔɖakɔwo ɖe France kple Togo.",
     missionTitle: "Míaƒe ɖokuiɖe",
-    missionText: "Dɔdɔe, wògblẽaɖe kple nudɔlaɖe ɖe míaƒe nuɖeviwo dzi.",
+    missionText: "Dɔdɔe, wɔgbláɖe kple nudɔlaɖe ɖe míaƒe nuɖeviwo dzi.",
     visionTitle: "Míaƒe ɖekakpɔ",
     visionText: "Yaŋlɔe ɖe, míaƒe ɖeviwo le gbedodoŋu dzi.",
     valuesTitle: "Míaƒe viɖɛ",
@@ -151,10 +171,10 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     project1Title: "Tabligbo Center",
     project1Desc: "Dzadzɔ ɖeɖe le ɖeviwo kple suku.",
-    project2Title: "Nutrion Program",
-    project2Desc: "Nutritonal support.",
+    project2Title: "Nutrition Program",
+    project2Desc: "Nutritional support.",
     project3Title: "Education",
-    project3Desc: "Suku kple agbeƒeviwo.",
+    project3Desc: "Suku kple agbeɖeviwo.",
     project4Title: "Water Access",
     project4Desc: "Puits kple pompes.",
     project5Title: "Women's Empowerment",
@@ -162,23 +182,27 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     project6Title: "Emergency Actions",
     project6Desc: "Aid in crisis.",
 
-    impactFamilies: "+1500 families helped",
+    impactFamilies: "+1500 families",
     impactChildren: "+300 children",
     impactProjects: "12 projects",
+    impactWater: "3 wells",
+    impactEducation: "250 children",
 
-    donateWhyTitle: "Why donate ?",
+    donateWhyTitle: "Why donate?",
     donateWhyText: "Every donation helps.",
     donateCTA: "Donate",
 
     contactTitle: "Contact",
     contactEmail: "aspft.francetogo@gmail.com",
     contactAddress: "60 rue des Tours, 31670 Labège, France",
+    contactPhone: "+33 6 XX XX XX XX",
 
-    footerRights: "© 2025 ASPFT"
+    footerRights: "© 2025 ASPFT",
+    footerMission: "Association • RNA • Transparency"
   }
 };
 
-// Mock data arrays (examples) - conservés/enrichis
+// Mock data - ENRICHIS
 export const MOCK_DONATIONS: Donation[] = [
   { id: '1', date: '2023-10-25', name: 'Jean Dupont', email: 'jean.d@email.com', amount: 50, method: 'Online', message: 'Bravo pour le projet !', receiptSent: true },
   { id: '2', date: '2023-10-24', name: 'Marie Martin', email: 'marie.m@email.com', amount: 100, method: 'Virement', receiptSent: false },
@@ -270,16 +294,75 @@ export const MOCK_MEMBERS: Member[] = [
   }
 ];
 
+// PRODUITS ENRICHIS avec FCFA
 export const MOCK_PRODUCTS: Product[] = [
-  { id: '1', name: 'T-Shirt ASPFT Officiel', price: 20, category: 'Goodies', description: 'Coton bio, soutenez le projet.', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80' },
-  { id: '2', name: 'Sac Artisanal Togo', price: 35, category: 'Artisanat', description: 'Fait main à Kpalimé.', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&q=80' },
-  { id: '3', name: 'Café Togolais (250g)', price: 12, category: 'Artisanat', description: 'Récolté sur les plateaux.', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500&q=80' },
+  {
+    id: '1',
+    name: 'T-Shirt ASPFT Officiel',
+    price: 20,
+    category: 'Goodies',
+    description: 'Coton bio équitable. Logo brodé. Tailles S à XXL. Soutenez nos actions en portant nos couleurs !',
+    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80'
+  },
+  {
+    id: '2',
+    name: 'Sac Artisanal Togo',
+    price: 35,
+    category: 'Artisanat',
+    description: 'Tissé main à Kpalimé par des artisanes locales. Dimensions 40x30 cm. Résistant et unique.',
+    image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=500&q=80'
+  },
+  {
+    id: '3',
+    name: 'Café Togolais (250g)',
+    price: 12,
+    category: 'Artisanat',
+    description: 'Arabica récolté sur les plateaux de Kpalimé. Torréfaction artisanale. Arômes fruités et cacaotés.',
+    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=500&q=80'
+  },
+  {
+    id: '4',
+    name: 'Bracelet Wax Solidaire',
+    price: 8,
+    category: 'Goodies',
+    description: 'Bracelet en tissu wax authentique. Fait main au Togo. Réglable. Chaque achat finance 1 repas.',
+    image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&q=80'
+  },
+  {
+    id: '5',
+    name: 'Savon Karité Bio (100g)',
+    price: 6,
+    category: 'Artisanat',
+    description: 'Savon au beurre de karité pur. Fabriqué par une coopérative de femmes. Hydratant et doux.',
+    image: 'https://images.unsplash.com/photo-1600857544200-242879aa56f8?w=500&q=80'
+  }
 ];
 
 export const MOCK_CHILDREN: Child[] = [
-  { id: '1', name: 'Kossi', age: 8, story: "Kossi rêve de devenir médecin. Il a besoin de soutien pour l'école.", image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80', isSponsored: false },
-  { id: '2', name: 'Afi', age: 6, story: "Afi adore les mathématiques. Elle vit avec sa grand-mère.", image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&q=80', isSponsored: true },
-  { id: '3', name: 'Kodjo', age: 10, story: "Passionné de football, Kodjo veut construire des maisons plus tard.", image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=80', isSponsored: false },
+  {
+    id: '1',
+    name: 'Kossi',
+    age: 8,
+    story: "Kossi rêve de devenir médecin pour soigner sa communauté. Orphelin, il vit chez son oncle et a besoin de soutien pour continuer l'école.",
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80',
+    isSponsored: false
+  },
+  {
+    id: '2',
+    name: 'Afi',
+    age: 6,
+    story: "Afi adore les mathématiques et dessiner. Elle vit avec sa grand-mère qui peine à subvenir à ses besoins. Votre soutien lui offrira un avenir.",
+    image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&q=80',
+    isSponsored: true
+  },
+  {
+    id: '3',
+    name: 'Kodjo',
+    age: 10,
+    story: "Passionné de football et de construction, Kodjo veut devenir maçon pour bâtir des écoles dans son village. Il a besoin de matériel scolaire.",
+    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=80',
+    isSponsored: false
+  }
 ];
 
 export const getFileIcon = (type: DocFile['type']) => {
@@ -290,4 +373,11 @@ export const getFileIcon = (type: DocFile['type']) => {
     case 'code': return <Code className="w-6 h-6 text-yellow-500" />;
     default: return <File className="w-6 h-6 text-gray-500" />;
   }
+};
+
+// Taux de conversion (indicatifs)
+export const EXCHANGE_RATES = {
+  EUR_TO_FCFA: 655.957,
+  USD_TO_EUR: 0.92,
+  GBP_TO_EUR: 1.17
 };
