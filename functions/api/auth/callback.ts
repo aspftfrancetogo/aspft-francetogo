@@ -10,9 +10,14 @@ export async function onRequestGet(context: any) {
   const { request, env } = context;
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
+  const error = url.searchParams.get('error');
+
+  if (error) {
+    return new Response(`GitHub OAuth error: ${error}`, { status: 400 });
+  }
 
   if (!code) {
-    return new Response('Missing code', { status: 400 });
+    return new Response('Missing authorization code', { status: 400 });
   }
 
   try {
@@ -30,9 +35,21 @@ export async function onRequestGet(context: any) {
       }),
     });
 
-    const tokenData = await tokenResponse.json();
+    const tokenText = await tokenResponse.text();
+    
+    let tokenData;
+    try {
+      tokenData = JSON.parse(tokenText);
+    } catch (e) {
+      return new Response(`GitHub token response parse error: ${tokenText}`, { status: 500 });
+    }
+
+    if (tokenData.error) {
+      return new Response(`GitHub error: ${tokenData.error} - ${tokenData.error_description}`, { status: 401 });
+    }
+
     if (!tokenData.access_token) {
-      return new Response('Failed to get access token: ' + JSON.stringify(tokenData), { status: 401 });
+      return new Response(`No access token received: ${JSON.stringify(tokenData)}`, { status: 401 });
     }
 
     // Get user info
@@ -40,15 +57,20 @@ export async function onRequestGet(context: any) {
       headers: {
         'Authorization': `Bearer ${tokenData.access_token}`,
         'Accept': 'application/json',
+        'User-Agent': 'ASPFT-Auth',
       },
     });
+
+    if (!userResponse.ok) {
+      return new Response(`GitHub user API error: ${userResponse.status}`, { status: 500 });
+    }
 
     const user: GitHubUser = await userResponse.json();
 
     // Whitelist check
     const allowedUsers = (env.ALLOWED_GITHUB_USERS || '').split(',').map((u: string) => u.trim());
     if (!allowedUsers.includes(user.login)) {
-      return new Response(`Unauthorized user: ${user.login}. Allowed: ${allowedUsers.join(', ')}`, { status: 403 });
+      return new Response(`Access denied for user: ${user.login}`, { status: 403 });
     }
 
     // Create session JWT
@@ -64,20 +86,28 @@ export async function onRequestGet(context: any) {
 
     // Redirect with cookie
     const response = Response.redirect(`${url.origin}/?authenticated=true`, 302);
-    response.headers.set('Set-Cookie', `aspft_session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`);
+    response.headers.set(
+      'Set-Cookie', 
+      `aspft_session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`
+    );
     
     return response;
+
   } catch (error: any) {
-    return new Response('Error: ' + error.message, { status: 500 });
+    return new Response(`Server error: ${error.message}\n\nStack: ${error.stack}`, { 
+      status: 500,
+      headers: { 'Content-Type': 'text/plain' }
+    });
   }
 }
 
-// Fixed JWT creation for Cloudflare Workers
 async function createJWT(payload: any, secret: string): Promise<string> {
   const header = { alg: 'HS256', typ: 'JWT' };
   
-  // Use proper base64url encoding
-  const base64url = (str: string) => {
+  const base64url = (input: ArrayBuffer | string) => {
+    const str = typeof input === 'string' 
+      ? input 
+      : String.fromCharCode(...new Uint8Array(input));
     return btoa(str)
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
@@ -86,10 +116,9 @@ async function createJWT(payload: any, secret: string): Promise<string> {
   
   const encodedHeader = base64url(JSON.stringify(header));
   const encodedPayload = base64url(JSON.stringify(payload));
-  
   const data = `${encodedHeader}.${encodedPayload}`;
-  const encoder = new TextEncoder();
   
+  const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
     encoder.encode(secret),
@@ -99,7 +128,7 @@ async function createJWT(payload: any, secret: string): Promise<string> {
   );
   
   const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
-  const encodedSignature = base64url(String.fromCharCode(...new Uint8Array(signature)));
+  const encodedSignature = base64url(signature);
   
   return `${data}.${encodedSignature}`;
 }
