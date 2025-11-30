@@ -41,7 +41,7 @@ export async function onRequestGet(context: any) {
     try {
       tokenData = JSON.parse(tokenText);
     } catch (e) {
-      return new Response(`GitHub token parse error: ${tokenText}`, { status: 500 });
+      return new Response(`Parse error: ${tokenText}`, { status: 500 });
     }
 
     if (tokenData.error) {
@@ -49,7 +49,7 @@ export async function onRequestGet(context: any) {
     }
 
     if (!tokenData.access_token) {
-      return new Response(`No access token: ${JSON.stringify(tokenData)}`, { status: 401 });
+      return new Response(`No token: ${JSON.stringify(tokenData)}`, { status: 401 });
     }
 
     // Get user info
@@ -67,19 +67,15 @@ export async function onRequestGet(context: any) {
 
     const user: GitHubUser = await userResponse.json();
 
-    // Whitelist check with detailed logging
+    // Whitelist check
     const allowedUsersRaw = env.ALLOWED_GITHUB_USERS || '';
     const allowedUsers = allowedUsersRaw.split(',').map((u: string) => u.trim().toLowerCase());
     const userLoginLower = user.login.toLowerCase();
     
-    // TEMPORARY: Accept everyone for testing
-    const isAllowed = true; // allowedUsers.includes(userLoginLower);
+    const isAllowed = allowedUsers.includes(userLoginLower);
     
     if (!isAllowed) {
-      return new Response(
-        `Access denied\nUser: "${user.login}" (${userLoginLower})\nAllowed: ${allowedUsers.join(', ')}\nRaw config: "${allowedUsersRaw}"`, 
-        { status: 403 }
-      );
+      return new Response(`Access denied for: ${user.login}`, { status: 403 });
     }
 
     // Create session JWT
@@ -93,14 +89,16 @@ export async function onRequestGet(context: any) {
 
     const jwt = await createJWT(sessionData, env.JWT_SECRET);
 
-    // Redirect with cookie
-    const response = Response.redirect(`${url.origin}/?authenticated=true`, 302);
-    response.headers.set(
-      'Set-Cookie', 
-      `aspft_session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`
-    );
+    // Create redirect response with cookie
+    const redirectUrl = `${url.origin}/?authenticated=true`;
     
-    return response;
+    return new Response(null, {
+      status: 302,
+      headers: {
+        'Location': redirectUrl,
+        'Set-Cookie': `aspft_session=${jwt}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=86400`,
+      },
+    });
 
   } catch (error: any) {
     return new Response(`Error: ${error.message}`, { status: 500 });
