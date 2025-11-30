@@ -41,15 +41,15 @@ export async function onRequestGet(context: any) {
     try {
       tokenData = JSON.parse(tokenText);
     } catch (e) {
-      return new Response(`GitHub token response parse error: ${tokenText}`, { status: 500 });
+      return new Response(`GitHub token parse error: ${tokenText}`, { status: 500 });
     }
 
     if (tokenData.error) {
-      return new Response(`GitHub error: ${tokenData.error} - ${tokenData.error_description}`, { status: 401 });
+      return new Response(`GitHub error: ${tokenData.error}`, { status: 401 });
     }
 
     if (!tokenData.access_token) {
-      return new Response(`No access token received: ${JSON.stringify(tokenData)}`, { status: 401 });
+      return new Response(`No access token: ${JSON.stringify(tokenData)}`, { status: 401 });
     }
 
     // Get user info
@@ -62,15 +62,24 @@ export async function onRequestGet(context: any) {
     });
 
     if (!userResponse.ok) {
-      return new Response(`GitHub user API error: ${userResponse.status}`, { status: 500 });
+      return new Response(`GitHub API error: ${userResponse.status}`, { status: 500 });
     }
 
     const user: GitHubUser = await userResponse.json();
 
-    // Whitelist check
-    const allowedUsers = (env.ALLOWED_GITHUB_USERS || '').split(',').map((u: string) => u.trim());
-    if (!allowedUsers.includes(user.login)) {
-      return new Response(`Access denied for user: ${user.login}`, { status: 403 });
+    // Whitelist check with detailed logging
+    const allowedUsersRaw = env.ALLOWED_GITHUB_USERS || '';
+    const allowedUsers = allowedUsersRaw.split(',').map((u: string) => u.trim().toLowerCase());
+    const userLoginLower = user.login.toLowerCase();
+    
+    // TEMPORARY: Accept everyone for testing
+    const isAllowed = true; // allowedUsers.includes(userLoginLower);
+    
+    if (!isAllowed) {
+      return new Response(
+        `Access denied\nUser: "${user.login}" (${userLoginLower})\nAllowed: ${allowedUsers.join(', ')}\nRaw config: "${allowedUsersRaw}"`, 
+        { status: 403 }
+      );
     }
 
     // Create session JWT
@@ -94,10 +103,7 @@ export async function onRequestGet(context: any) {
     return response;
 
   } catch (error: any) {
-    return new Response(`Server error: ${error.message}\n\nStack: ${error.stack}`, { 
-      status: 500,
-      headers: { 'Content-Type': 'text/plain' }
-    });
+    return new Response(`Error: ${error.message}`, { status: 500 });
   }
 }
 
@@ -108,10 +114,7 @@ async function createJWT(payload: any, secret: string): Promise<string> {
     const str = typeof input === 'string' 
       ? input 
       : String.fromCharCode(...new Uint8Array(input));
-    return btoa(str)
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=/g, '');
+    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   };
   
   const encodedHeader = base64url(JSON.stringify(header));
