@@ -1,21 +1,19 @@
-// Cloudflare Pages Function - Verify JWT Session
+// Cloudflare Pages Function - Verify Session
 export async function onRequestGet(context: any) {
   const { request, env } = context;
   
   const cookie = request.headers.get('Cookie');
-  const sessionMatch = cookie?.match(/aspft_session=([^;]+)/);
+  const match = cookie?.match(/aspft_session=([^;]+)/);
   
-  if (!sessionMatch) {
+  if (!match) {
     return new Response(JSON.stringify({ authenticated: false }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const jwt = sessionMatch[1];
-  
   try {
-    const payload = await verifyJWT(jwt, env.JWT_SECRET);
+    const payload = await verifyJWT(match[1], env.JWT_SECRET);
     
     if (payload.exp < Math.floor(Date.now() / 1000)) {
       return new Response(JSON.stringify({ authenticated: false, error: 'Expired' }), {
@@ -36,8 +34,8 @@ export async function onRequestGet(context: any) {
       headers: { 'Content-Type': 'application/json' },
     });
     
-  } catch (error) {
-    return new Response(JSON.stringify({ authenticated: false, error: 'Invalid token' }), {
+  } catch (error: any) {
+    return new Response(JSON.stringify({ authenticated: false, error: error.message }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -45,21 +43,32 @@ export async function onRequestGet(context: any) {
 }
 
 async function verifyJWT(token: string, secret: string): Promise<any> {
-  const [encodedHeader, encodedPayload, encodedSignature] = token.split('.');
+  const [header, body, sig] = token.split('.');
+  if (!header || !body || !sig) throw new Error('Malformed token');
   
-  const data = `${encodedHeader}.${encodedPayload}`;
+  const enc = new TextEncoder();
+  const data = `${header}.${body}`;
+  
+  // Decode base64url
+  const b64decode = (str: string) => {
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) str += '=';
+    return Uint8Array.from(atob(str), c => c.charCodeAt(0));
+  };
+  
   const key = await crypto.subtle.importKey(
     'raw',
-    new TextEncoder().encode(secret),
+    enc.encode(secret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['verify']
   );
   
-  const signature = Uint8Array.from(atob(encodedSignature), c => c.charCodeAt(0));
-  const valid = await crypto.subtle.verify('HMAC', key, signature, new TextEncoder().encode(data));
+  const sigData = b64decode(sig);
+  const valid = await crypto.subtle.verify('HMAC', key, sigData, enc.encode(data));
   
   if (!valid) throw new Error('Invalid signature');
   
-  return JSON.parse(atob(encodedPayload));
+  const dec = new TextDecoder();
+  return JSON.parse(dec.decode(b64decode(body)));
 }
