@@ -1,6 +1,6 @@
-name = "aspft-site-officiel"
+name = "aspft-francetogo"
 compatibility_date = "2025-11-30"
-main = "dist"
+pages_build_output_dir = "dist"
 
 [site]
 bucket = "./dist"
