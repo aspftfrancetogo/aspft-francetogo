@@ -11,22 +11,35 @@ const Login: React.FC<LoginProps> = ({ onLogin, onCancel }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Check if already authenticated
-    const checkAuth = async () => {
-      try {
-        const response = await fetch('/api/auth/verify');
-        if (response.ok) {
-          const data = await response.json();
+    // Check if redirected after successful auth
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('authenticated') === 'true') {
+      // Verify session with backend
+      fetch('/api/auth/verify', {
+        credentials: 'include'
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.authenticated) {
+            onLogin();
+          } else {
+            setError('Authentification échouée');
+          }
+        })
+        .catch(() => setError('Erreur de vérification'));
+    } else {
+      // Check existing session
+      fetch('/api/auth/verify', {
+        credentials: 'include'
+      })
+        .then(res => res.json())
+        .then(data => {
           if (data.authenticated) {
             onLogin();
           }
-        }
-      } catch (err) {
-        console.error('Auth check failed:', err);
-      }
-    };
-
-    checkAuth();
+        })
+        .catch(() => {});
+    }
   }, [onLogin]);
 
   const handleGitHubLogin = () => {
@@ -50,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ onLogin, onCancel }) => {
             <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <div>
               <strong>Authentification GitHub OAuth</strong><br/>
-              Seuls les comptes autorisés peuvent accéder à cette zone.
+              Seuls les comptes autorisés peuvent accéder.
             </div>
           </div>
 

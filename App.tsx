@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import Documents from './components/Documents';
-import Members from './components/Members'; 
 import Assistant from './components/Assistant';
 import PublicSite from './components/PublicSite';
 import Login from './components/Login';
@@ -15,13 +14,31 @@ import { View } from './types';
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(View.PUBLIC);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  // If public view, show public site immediately without login check
+  useEffect(() => {
+    // Check session on mount
+    if (currentView !== View.PUBLIC) {
+      fetch('/api/auth/verify', { credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+          setIsAuthenticated(data.authenticated || false);
+          setIsCheckingAuth(false);
+        })
+        .catch(() => {
+          setIsAuthenticated(false);
+          setIsCheckingAuth(false);
+        });
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [currentView]);
+
+  // If public view, show public site
   if (currentView === View.PUBLIC) {
     return (
       <div className="relative">
         <PublicSite />
-        {/* Floating Admin Button for Login */}
         <button 
           onClick={() => setCurrentView(View.DASHBOARD)}
           className="fixed bottom-6 right-6 p-4 bg-slate-900 text-white rounded-full shadow-xl hover:scale-110 transition-transform z-50 flex items-center justify-center group"
@@ -34,7 +51,15 @@ const App: React.FC = () => {
     );
   }
 
-  // Check authentication for all other views
+  // Check authentication for admin views
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="text-white text-lg">Vérification...</div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return <Login onLogin={() => setIsAuthenticated(true)} onCancel={() => setCurrentView(View.PUBLIC)} />;
   }
