@@ -1,0 +1,6 @@
+name = "aspft-site-officiel"
+compatibility_date = "2025-11-30"
+main = "dist"
+
+[site]
+bucket = "./dist"
