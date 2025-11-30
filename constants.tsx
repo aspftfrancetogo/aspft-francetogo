@@ -15,8 +15,58 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     sponsorship: "Parrainage",
     raised: "Dons collectés",
     children: "Enfants visés",
-    welcome: "Bienvenue sur ASPFT"
+    welcome: "Bienvenue sur ASPFT",
+
+    // Ajouts pour la v3
+    aboutTitle: "À propos de l'ASPFT",
+    aboutText:
+      "L’Amitié & Solidarité des Peuples France-Togo (ASPFT) soutient des actions concrètes d’éducation, d’accès à l’eau, d’autonomisation et d’aide d’urgence au Togo. Nous travaillons en partenariat avec les communautés locales pour des projets durables et respectueux.",
+    whoTitle: "Qui sommes-nous ?",
+    whoText:
+      "Association indépendante et citoyenne, l'ASPFT réunit des bénévoles et partenaires en France et au Togo pour mettre en place des projets locaux durables, transparents et centrés sur les populations.",
+    missionTitle: "Notre mission",
+    missionText:
+      "Accompagner, former et soutenir les populations vulnérables afin de renforcer leur autonomie (éducation, santé, eau et formation).",
+    visionTitle: "Notre vision",
+    visionText:
+      "Un Togo où chaque enfant peut accéder à une éducation de qualité et à des conditions de vie décentes.",
+    valuesTitle: "Nos valeurs",
+    valuesText: "Solidarité, Transparence, Respect, Durabilité, Autonomie.",
+
+    // Projets (titres et descriptions)
+    project1Title: "Centre d'accueil Tabligbo",
+    project1Desc: "Construction d’un centre d'hébergement et d'apprentissage pour enfants vulnérables.",
+    project2Title: "Programme alimentaire",
+    project2Desc: "Distribution de kits alimentaires et hygiène aux familles en difficulté.",
+    project3Title: "Éducation & alphabétisation",
+    project3Desc: "Soutien scolaire, bibliothèque mobile et ateliers pour enfants et adultes.",
+    project4Title: "Accès à l’eau",
+    project4Desc: "Réhabilitation de puits et installation de pompes manuelles.",
+    project5Title: "Autonomisation des femmes",
+    project5Desc: "Formations aux métiers, micro-projets et appui aux initiatives locales.",
+    project6Title: "Actions d'urgence",
+    project6Desc: "Réponses rapides en cas de crise (distribution, abris, secours).",
+
+    // Impact succinct
+    impactFamilies: "+1500 familles aidées",
+    impactChildren: "+300 enfants accompagnés",
+    impactProjects: "12 projets menés",
+
+    // Don
+    donateWhyTitle: "Pourquoi donner ?",
+    donateWhyText:
+      "Chaque don finance directement des actions concrètes : repas, matériel scolaire, construction, eau potable et suivi social. Vos dons sont tracés et utilisés avec transparence.",
+    donateCTA: "Faire un don",
+
+    // Contact
+    contactTitle: "Nous contacter",
+    contactEmail: "aspft.francetogo@gmail.com",
+    contactAddress: "60 rue des Tours, 31670 Labège, France",
+
+    // Footer
+    footerRights: "© 2025 ASPFT — Tous droits réservés"
   },
+
   en: {
     heroTitle: "Together, let's change lives",
     heroSubtitle: "Creating a welcome and learning center in Tabligbo (Togo).",
@@ -28,10 +78,55 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     sponsorship: "Sponsorship",
     raised: "Funds Raised",
     children: "Target Children",
-    welcome: "Welcome to ASPFT"
+    welcome: "Welcome to ASPFT",
+
+    // Additions
+    aboutTitle: "About ASPFT",
+    aboutText:
+      "Friendship & Solidarity of the Peoples France-Togo (ASPFT) supports concrete actions in education, water access, empowerment and emergency aid in Togo. We work with local communities for sustainable projects.",
+    whoTitle: "Who we are",
+    whoText:
+      "ASPFT is an independent citizens' association bringing together volunteers and partners from France and Togo to implement sustainable, transparent local projects.",
+    missionTitle: "Our mission",
+    missionText:
+      "Support, train and accompany vulnerable populations to strengthen their autonomy (education, health, water, training).",
+    visionTitle: "Our vision",
+    visionText:
+      "A Togo where every child has access to quality education and decent living conditions.",
+    valuesTitle: "Our values",
+    valuesText: "Solidarity, Transparency, Respect, Durability, Autonomy.",
+
+    project1Title: "Tabligbo Welcome Center",
+    project1Desc: "Building a learning and shelter center for vulnerable children.",
+    project2Title: "Food Program",
+    project2Desc: "Distribution of food and hygiene kits to families in need.",
+    project3Title: "Education & Literacy",
+    project3Desc: "School support, mobile library and workshops for children and adults.",
+    project4Title: "Water Access",
+    project4Desc: "Rehabilitation of wells and installation of manual pumps.",
+    project5Title: "Women's Empowerment",
+    project5Desc: "Vocational training, micro-project support and local initiatives.",
+    project6Title: "Emergency Actions",
+    project6Desc: "Rapid response in crises (distribution, shelter, relief).",
+
+    impactFamilies: "Over 1,500 families helped",
+    impactChildren: "Over 300 children supported",
+    impactProjects: "12 successful projects",
+
+    donateWhyTitle: "Why donate ?",
+    donateWhyText:
+      "Every donation directly funds concrete actions: meals, school supplies, infrastructure, clean water and social support. Donations are tracked and used transparently.",
+    donateCTA: "Donate now",
+
+    contactTitle: "Contact us",
+    contactEmail: "aspft.francetogo@gmail.com",
+    contactAddress: "60 rue des Tours, 31670 Labège, France",
+
+    footerRights: "© 2025 ASPFT — All rights reserved"
   },
+
   ee: {
-    heroTitle: "Đekawɔwɔ, míe trɔ agbe wo", // Ewe approximation
+    heroTitle: "Đekawɔwɔ, míe trɔ agbe wo",
     heroSubtitle: "Suku kple xɔtuɖoɖo le Tabligbo (Togo).",
     donate: "Na Nusi",
     projects: "Míaƒe Dɔwo",
@@ -41,10 +136,49 @@ export const TRANSLATIONS: Record<Language, Record<string, string>> = {
     sponsorship: "Kpeɖeŋu",
     raised: "Ga si woƒo ƒu",
     children: "Ɖeviwo",
-    welcome: "Woezɔ ɖe ASPFT"
+    welcome: "Woezɔ ɖe ASPFT",
+
+    aboutTitle: "ASPFT ƒe ɖeƒe",
+    aboutText: "ASPFT nye ɖeɖeɖoɖowo katã ɖe agbeƒeviwo kple nuɖeviwo dzi le Togo ƒe agbale.",
+    whoTitle: "Míaƒe nya",
+    whoText: "Míaƒe koenye kple asɔɖakɔwo ɖe France kple Togo ɖe ɖokuiɖe le míaƒe dɔwɔlawo.",
+    missionTitle: "Míaƒe ɖokuiɖe",
+    missionText: "Dɔdɔe, wògblẽaɖe kple nudɔlaɖe ɖe míaƒe nuɖeviwo dzi.",
+    visionTitle: "Míaƒe ɖekakpɔ",
+    visionText: "Yaŋlɔe ɖe, míaƒe ɖeviwo le gbedodoŋu dzi.",
+    valuesTitle: "Míaƒe viɖɛ",
+    valuesText: "Solidarité, Transparence, Respect, Durabilité, Autonomie.",
+
+    project1Title: "Tabligbo Center",
+    project1Desc: "Dzadzɔ ɖeɖe le ɖeviwo kple suku.",
+    project2Title: "Nutrion Program",
+    project2Desc: "Nutritonal support.",
+    project3Title: "Education",
+    project3Desc: "Suku kple agbeƒeviwo.",
+    project4Title: "Water Access",
+    project4Desc: "Puits kple pompes.",
+    project5Title: "Women's Empowerment",
+    project5Desc: "Training.",
+    project6Title: "Emergency Actions",
+    project6Desc: "Aid in crisis.",
+
+    impactFamilies: "+1500 families helped",
+    impactChildren: "+300 children",
+    impactProjects: "12 projects",
+
+    donateWhyTitle: "Why donate ?",
+    donateWhyText: "Every donation helps.",
+    donateCTA: "Donate",
+
+    contactTitle: "Contact",
+    contactEmail: "aspft.francetogo@gmail.com",
+    contactAddress: "60 rue des Tours, 31670 Labège, France",
+
+    footerRights: "© 2025 ASPFT"
   }
 };
 
+// Mock data arrays (examples) - conservés/enrichis
 export const MOCK_DONATIONS: Donation[] = [
   { id: '1', date: '2023-10-25', name: 'Jean Dupont', email: 'jean.d@email.com', amount: 50, method: 'Online', message: 'Bravo pour le projet !', receiptSent: true },
   { id: '2', date: '2023-10-24', name: 'Marie Martin', email: 'marie.m@email.com', amount: 100, method: 'Virement', receiptSent: false },
