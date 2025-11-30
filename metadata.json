@@ -1,0 +1,8 @@
+{
+  "name": "ASPFT Admin",
+  "description": "Amitié & Solidarité France-Togo Management Platform",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
